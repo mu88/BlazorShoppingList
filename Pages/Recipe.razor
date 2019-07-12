@@ -1,0 +1,49 @@
+@using DTO
+
+    <div class="card">
+        <h5 class="card-header">
+            @CurrentRecipe.Name
+        </h5>
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipe Name" id="RecipeName" @bind="CurrentRecipe.Name" />
+            </div>
+
+            <p class="card-text">
+                <h6>Ingredients (@CurrentRecipe.Ingredients.Count)</h6>
+                <button class="btn btn-primary" @onclick="@AddIngredient">Add Ingredient</button>
+                <table>
+                    <tr>
+                        <th>Type</th>
+                        <th>Amount</th>
+                    </tr>
+                    @foreach (var ingredient in CurrentRecipe.Ingredients)
+                    {
+                        <tr>
+                            <td>
+                                <select id="IngredientName" @bind="ingredient.Type">
+                                    <option value="">Select Ingredient...</option>
+                                    <option value="Tomato">Tomato</option>
+                                    <option value="Cheese">Cheese</option>
+                                    <option value="Milk">Milk</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" min="1" @bind="ingredient.Amount" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </p>
+            </div>
+    </div>
+
+@code {
+    [Parameter]
+    RecipeDto CurrentRecipe { get; set; }
+
+    void AddIngredient()
+    {
+        CurrentRecipe.Ingredients.Add(new IngredientDto());
+    }
+}

@@ -1,0 +1,58 @@
+@using DTO
+
+<h3>Shopping List</h3>
+
+<p>Number of recipes: @recipes.Count()</p>
+
+<button class="btn btn-primary" @onclick="@CreateRecipe">Create Recipe</button>
+<button class="btn btn-primary" @onclick="@GenerateShoppingList">Generate Shopping List</button>
+
+@if (shoppingIngredients.Any())
+{
+    <h4>Shopping Ingredients</h4>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+        @foreach (var ingredient in shoppingIngredients)
+        {
+            <tr>
+                <td>@ingredient.Type</td>
+                <td>@ingredient.Amount</td>
+            </tr>
+        }
+    </table>
+}
+
+@foreach (var recipe in recipes)
+{
+    <Recipe CurrentRecipe="@recipe"></Recipe>  
+}
+
+@code {
+    List<RecipeDto> recipes = new List<RecipeDto>();
+    List<IngredientDto> shoppingIngredients = new List<IngredientDto>();
+
+    void CreateRecipe()
+    {
+        recipes.Add(new RecipeDto());
+    }
+
+    void GenerateShoppingList()
+    {
+        var ingredients = new List<IngredientDto>();
+        foreach (var recipe in recipes)
+        {
+            ingredients.AddRange(recipe.Ingredients);
+        }
+
+        shoppingIngredients = ingredients.GroupBy(x => x.Type)
+                                         .Select(x => new IngredientDto()
+                                         {
+                                             Type = x.Key,
+                                             Amount = x.Sum(y => y.Amount)
+                                         })
+                                         .ToList();
+    }
+}
