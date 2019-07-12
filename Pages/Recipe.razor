@@ -5,37 +5,46 @@
             @CurrentRecipe.Name
         </h5>
         <div class="card-body">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipe Name" id="RecipeName" @bind="CurrentRecipe.Name" />
-            </div>
+            @if (string.IsNullOrWhiteSpace(CurrentRecipe.Name))
+            {
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter Recipe Name" id="RecipeName" @bind="CurrentRecipe.Name" />
+                </div>
+            }
 
-            <p class="card-text">
-                <h6>Ingredients (@CurrentRecipe.Ingredients.Count)</h6>
+            <div class="card-text">
                 <button class="btn btn-primary" @onclick="@AddIngredient">Add Ingredient</button>
-                <table>
-                    <tr>
-                        <th>Type</th>
-                        <th>Amount</th>
-                    </tr>
-                    @foreach (var ingredient in CurrentRecipe.Ingredients)
-                    {
+                <table class="table table-sm table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                <select id="IngredientName" @bind="ingredient.Type">
-                                    <option value="">Select Ingredient...</option>
-                                    <option value="Tomato">Tomato</option>
-                                    <option value="Cheese">Cheese</option>
-                                    <option value="Milk">Milk</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" min="1" @bind="ingredient.Amount" />
-                            </td>
+                            <th>Type</th>
+                            <th>Amount</th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var ingredient in CurrentRecipe.Ingredients)
+                        {
+                            <tr>
+                                <td>
+                                    <select id="IngredientName" @bind="ingredient.Type">
+                                        <option value="">Select Ingredient...</option>
+                                        <option value="Tomato">Tomato</option>
+                                        <option value="Cheese">Cheese</option>
+                                        <option value="Milk">Milk</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" min="1" @bind="ingredient.Amount" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
-            </p>
             </div>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">@CurrentRecipe.Ingredients.Count Ingredients</small>
+        </div>
     </div>
 
 @code {
