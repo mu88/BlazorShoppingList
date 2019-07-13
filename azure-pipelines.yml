@@ -27,5 +27,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacts'
   inputs:
-    pathtoPublish: $(Build.ArtifactStagingDirectory)/Client
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/BlazorShoppingList/dist
     artifactName: 'Dist'
