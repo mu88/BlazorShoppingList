@@ -33,12 +33,13 @@ steps:
 - script: |
     git config --global user.name "$NAME"
     git config --global user.email "$EMAIL"
-    cd $(Build.ArtifactStagingDirectory)/s/BlazorShoppingList/dist
-    git init
+    git clone https://$PAT@github.com/$NAME/blazor-shopping.git $(Build.ArtifactStagingDirectory)/git
+    cd $(Build.ArtifactStagingDirectory)/git
     git checkout -b master
+    cp -R $(Build.ArtifactStagingDirectory)/s/BlazorShoppingList/dist $(Build.ArtifactStagingDirectory)/git
     git add -A
     git commit -m "Create build $(Build.BuildId)"
-    git push -f https://$PAT@github.com/$NAME/blazor-shopping.git master
+    git push https://$PAT@github.com/$NAME/blazor-shopping.git master
   displayName: 'Publish to GitHub Pages'
   env:
     PAT: $(GitHubPAT)
