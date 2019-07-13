@@ -13,7 +13,7 @@
             }
 
             <div class="card-text">
-                <button class="btn btn-primary" @onclick="@AddIngredient">Add Ingredient</button>
+                <button class="btn btn-primary btn-sm" @onclick="@AddIngredient">Add Ingredient</button>
                 <table class="table table-sm table-striped">
                     <thead>
                         <tr>
@@ -26,15 +26,19 @@
                         {
                             <tr>
                                 <td>
-                                    <select id="IngredientName" @bind="ingredient.Type">
-                                        <option value="">Select Ingredient...</option>
-                                        <option value="Tomato">Tomato</option>
-                                        <option value="Cheese">Cheese</option>
-                                        <option value="Milk">Milk</option>
-                                    </select>
+                                    <div class="form-group">
+                                        <select class="form-control" id="IngredientName" @bind="ingredient.Type">
+                                            <option value="">Select Ingredient...</option>
+                                            <option value="Tomato">Tomato</option>
+                                            <option value="Cheese">Cheese</option>
+                                            <option value="Milk">Milk</option>
+                                        </select>
+                                    </div>                                    
                                 </td>
                                 <td>
-                                    <input type="number" min="1" @bind="ingredient.Amount" />
+                                    <div class="form-group">
+                                        <input class="form-control" type="number" min="1" @bind="ingredient.Amount" />
+                                    </div>                                    
                                 </td>
                             </tr>
                         }

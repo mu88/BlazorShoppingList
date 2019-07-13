@@ -6,11 +6,11 @@
 
         <p>Number of recipes: @recipes.Count()</p>
 
-        <button class="btn btn-primary" @onclick="@CreateRecipe">Create Recipe</button>
+        <button class="btn btn-primary btn-sm" @onclick="@CreateRecipe">Create Recipe</button>
 
         @if (recipes.Any())
         {
-            <button class="btn btn-primary" @onclick="@GenerateShoppingList">Generate Shopping List</button>
+            <button class="btn btn-primary btn-sm" @onclick="@GenerateShoppingList">Generate Shopping List</button>
         }
 
         @if (shoppingIngredients.Any())
